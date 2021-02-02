@@ -8,6 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({ name: '', email: '', password: '' })
 
+  // Capture form submit, validate and submit new user
   const submitRegister = async (e) => {
     e.preventDefault()
     const usersRef = firebase.database().ref('users')
@@ -17,30 +18,32 @@ const Register = () => {
       password
     }
 
-    // check if each field was entered
-    if (name === '') {
-      setErrors({ ...errors, name: 'A name must be provided.' })
-    } else if (email === '') {
-      setErrors({ ...errors, email: 'An email must be provided.' })
-    } else if (password === '') {
-      setErrors({ ...errors, password: 'A password must be provided.' })
-    } else {
-      setErrors({ name: '', email: '', password: '' })
+    // Check if each field was filled and set errors state accordingly
+    setErrors({
+      name: user.name === '' ? 'You must enter your name.' : '',
+      email: user.email === '' ? 'You must enter a valid email.' : '',
+      password: user.password === '' ? 'You must enter a valid password.' : ''
+    })
+
+    if (errors.name != '' || errors.email != '' || errors.password != '') {
+      return
     }
+
+    console.log('passed')
     // usersRef.push(user)
   }
   return (
     <form onSubmit={submitRegister}>
       <input placeholder='Name' onChange={(e) => setName(e.target.value)} />
-      <Error text={errors.name} />
+      <Error>{errors.name}</Error>
       <input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-      <Error text={errors.email} />
+      <Error>{errors.email}</Error>
       <input
         placeholder='Password'
         type='password'
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Error text={errors.password} />
+      <Error>{errors.password}</Error>
       <button type='submit'>Submit</button>
     </form>
   )
