@@ -2,6 +2,12 @@ import { useState } from 'react'
 import firebase from '../firebase'
 import Error from '../components/Error'
 
+interface User {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -12,7 +18,8 @@ const Register = () => {
   const submitRegister = async (e) => {
     e.preventDefault()
     const usersRef = firebase.database().ref('users')
-    let user = {
+    
+    let user: User = {
       name,
       email,
       password
