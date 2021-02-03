@@ -2,7 +2,7 @@ import { useState } from 'react'
 import firebase from '../firebase'
 import Error from '../components/Error'
 import { User } from '../utils/types'
-import { validate } from '../utils/helpers'
+import { validate, writeUserData } from '../utils/helpers'
 
 const Register = () => {
   const usersRef = firebase.database().ref('users')
@@ -24,19 +24,21 @@ const Register = () => {
     // Validate user object
     const validationResult = validate(user)
 
-    // If no errors, add new user to database
+    // If no errors, add new user to auth database
     if (validationResult.noErrors) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password)
         .then((userCredential) => {
-          // Signed in
-          let loggedInUser = userCredential.user
-          console.log(loggedInUser)
+          let newUser = userCredential.user
+
+          // Create new user object in realtime database
+          writeUserData(newUser.uid, newUser.displayName, newUser.email)
+
+          // Redirect to login page
         })
         .catch((error) => {
-          let errorCode = error.code
-          let errorMessage = error.message
+          console.log(error)
         })
     }
 

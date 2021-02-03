@@ -1,4 +1,5 @@
 import { User, UserErrors } from './types'
+import firebase from '../firebase'
 
 export function validate(user: User): UserErrors {
   let tempErrors: UserErrors = {
@@ -29,4 +30,18 @@ export function validate(user: User): UserErrors {
     tempErrors.password === ''
 
   return tempErrors
+}
+
+export function writeUserData(userId, name, email) {
+  try {
+    firebase
+      .database()
+      .ref('users/' + userId)
+      .set({
+        username: name,
+        email: email
+      })
+  } catch (err) {
+    console.log(err)
+  }
 }
