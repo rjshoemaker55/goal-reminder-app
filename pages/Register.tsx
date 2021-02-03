@@ -25,7 +25,20 @@ const Register = () => {
     const validationResult = validate(user)
 
     // If no errors, add new user to database
-    if (validationResult.noErrors) return console.log('user registered')
+    if (validationResult.noErrors) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(user.email, user.password)
+        .then((userCredential) => {
+          // Signed in
+          let loggedInUser = userCredential.user
+          console.log(loggedInUser)
+        })
+        .catch((error) => {
+          let errorCode = error.code
+          let errorMessage = error.message
+        })
+    }
 
     // Set errrors state to match errors returned from validate
     return setErrors({
