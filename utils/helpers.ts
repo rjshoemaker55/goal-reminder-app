@@ -1,6 +1,7 @@
 import { User, UserErrors } from './types'
 import firebase from '../firebase'
 
+// validate - Takes in a user object and returns any validation errors and a noErrors boolean
 export function validate(user: User): UserErrors {
   let tempErrors: UserErrors = {
     name: '',
@@ -32,13 +33,15 @@ export function validate(user: User): UserErrors {
   return tempErrors
 }
 
+// writeUserdata - takes in a userId (from firebase auth), name, and email, and creates a new
+// profile in the realtime database
 export function writeUserData(userId, name, email) {
   try {
     firebase
       .database()
       .ref('users/' + userId)
       .set({
-        username: name,
+        displayName: name,
         email: email
       })
   } catch (err) {

@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import firebase from '../firebase'
 import Error from '../components/Error'
 import { User } from '../utils/types'
 import { validate, writeUserData } from '../utils/helpers'
 
 const Register = () => {
-  const usersRef = firebase.database().ref('users')
+  const router = useRouter()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -33,9 +34,10 @@ const Register = () => {
           let newUser = userCredential.user
 
           // Create new user object in realtime database
-          writeUserData(newUser.uid, newUser.displayName, newUser.email)
+          writeUserData(newUser.uid, user.name, newUser.email)
 
-          // Redirect to login page
+          // Redirect to dashboard
+          router.push('/home')
         })
         .catch((error) => {
           console.log(error)
