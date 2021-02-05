@@ -3,14 +3,15 @@ import { useRouter } from 'next/router'
 import firebase from '../firebase'
 
 const Home = () => {
-  const [user, setUser] = useState({ email: '', displayName: '' })
+  const [user, setUser] = useState({ email: '', username: '' })
+  const [loggedIn, setLoggedIn] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
+  useEffect(async (): any => {
     let userId
 
     if (firebase.auth().currentUser === null) {
-      router.push('/login')
+      return router.push('/login')
     } else {
       userId = firebase.auth().currentUser.uid
     }
@@ -26,8 +27,16 @@ const Home = () => {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <h2>Welcome, {user.username}</h2>
+      {loggedIn ? (
+        <>
+          <h1>Dashboard</h1>
+          <h2>Welcome, {user.username}</h2>
+        </>
+      ) : (
+        <>
+          <h2>Please wait...</h2>
+        </>
+      )}
     </>
   )
 }

@@ -95,9 +95,9 @@ const Login = () => {
       <button type='submit'>
         {page === 'register' ? 'Register' : 'Login'}
       </button>
-      <Link href={page === 'register' ? '/login' : '/register'}>
-        {page === 'register' ? 'Login' : 'Register'}
-      </Link>
+      <button onClick={() => setPage(page === 'login' ? 'register' : 'login')}>
+        {page === 'register' ? 'login' : 'Register'}
+      </button>
     </form>
   )
 }
