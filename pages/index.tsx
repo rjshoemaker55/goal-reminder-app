@@ -1,4 +1,4 @@
-import Login from './register'
+import Login from './login'
 
 const Index = () => {
   return <Login />

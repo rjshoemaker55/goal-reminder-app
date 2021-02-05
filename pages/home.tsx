@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import firebase from '../firebase'
 
 const Home = () => {
   const [user, setUser] = useState({ email: '', displayName: '' })
+  const router = useRouter()
 
   useEffect(() => {
-    const userId = firebase.auth().currentUser.uid
+    let userId
+
+    if (firebase.auth().currentUser === null) {
+      router.push('/login')
+    } else {
+      userId = firebase.auth().currentUser.uid
+    }
 
     firebase
       .database()
@@ -19,7 +27,7 @@ const Home = () => {
   return (
     <>
       <h1>Dashboard</h1>
-      <h2>Welcome, {user.displayName}</h2>
+      <h2>Welcome, {user.username}</h2>
     </>
   )
 }
