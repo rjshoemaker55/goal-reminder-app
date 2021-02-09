@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import firebase from '../firebase'
 import Error from '../components/Error'
 import { NewUser, ExistUser } from '../utils/types'
@@ -57,11 +56,6 @@ const Login = () => {
 
   const submitLogin = (e: any) => {
     e.preventDefault()
-
-    let existUser: ExistUser = {
-      email,
-      password
-    }
 
     firebase
       .auth()
