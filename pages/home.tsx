@@ -7,7 +7,7 @@ const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const router = useRouter()
 
-  useEffect(async (): any => {
+  useEffect((): any => {
     let userId
 
     if (firebase.auth().currentUser === null) {
@@ -22,6 +22,7 @@ const Home = () => {
       .once('value')
       .then((snapshot) => {
         setUser(snapshot.val())
+        setLoggedIn(true)
       })
   }, [])
 

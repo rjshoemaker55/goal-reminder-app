@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import firebase from '../firebase'
 import Error from '../components/Error'
 import { NewUser, ExistUser } from '../utils/types'
-import { validate, writeUserData } from '../utils/helpers'
+import { validate, writeUserData, handleError } from '../utils/helpers'
 
 const Login = () => {
   const router = useRouter()
@@ -13,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({ name: '', email: '', password: '' })
+  const [loginError, setLoginError] = useState('')
 
   // Capture form submit
   const submitRegister = (e: any) => {
@@ -58,11 +58,6 @@ const Login = () => {
   const submitLogin = (e: any) => {
     e.preventDefault()
 
-    let existUser: ExistUser = {
-      email,
-      password
-    }
-
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -73,6 +68,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error)
+        setLoginError(handleError(error))
       })
   }
 
@@ -92,6 +88,7 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <Error>{errors.password}</Error>
+      <Error>{loginError}</Error>
       <button type='submit'>
         {page === 'register' ? 'Register' : 'Login'}
       </button>

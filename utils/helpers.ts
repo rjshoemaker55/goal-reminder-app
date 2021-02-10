@@ -48,3 +48,13 @@ export function writeUserData(userId, name, email) {
     console.log(err)
   }
 }
+
+// handleError - takes in an error and returns an error message
+export function handleError(error) {
+  if (error.code === 'auth/user-not-found') {
+    return 'A user with this email does not exist.'
+  }
+  if (error.code === 'auth/wrong-password') {
+    return 'Incorrect password.'
+  }
+}
