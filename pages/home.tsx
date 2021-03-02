@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import firebase from '../firebase'
 
 const Home = () => {
-  const [user, setUser] = useState({ email: '', username: '' })
+  const [user, setUser] = useState({ email: '', displayName: '' })
   const [loggedIn, setLoggedIn] = useState(false)
   const router = useRouter()
 
@@ -21,6 +21,7 @@ const Home = () => {
       .ref(`users/${userId}`)
       .once('value')
       .then((snapshot) => {
+        console.log(snapshot.val())
         setUser(snapshot.val())
         setLoggedIn(true)
       })
@@ -31,7 +32,7 @@ const Home = () => {
       {loggedIn ? (
         <>
           <h1>Dashboard</h1>
-          <h2>Welcome, {user.username}</h2>
+          <h2>Welcome, {user.displayName}</h2>
         </>
       ) : (
         <>
