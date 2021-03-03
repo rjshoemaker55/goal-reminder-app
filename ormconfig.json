@@ -7,12 +7,12 @@
   "database": "goal_keeper",
   "synchronize": true,
   "logging": false,
-  "entities": ["src/entity/**/*.ts"],
-  "migrations": ["src/migration/**/*.ts"],
-  "subscribers": ["src/subscriber/**/*.ts"],
+  "entities": ["db_typeorm/src/entity/**/*.ts"],
+  "migrations": ["db_typeorm/src/migration/**/*.ts"],
+  "subscribers": ["db_typeorm/src/subscriber/**/*.ts"],
   "cli": {
-    "entitiesDir": "src/entity",
-    "migrationsDir": "src/migration",
-    "subscribersDir": "src/subscriber"
+    "entitiesDir": "db_typeorm/src/entity",
+    "migrationsDir": "db_typeorm/src/migration",
+    "subscribersDir": "db_typeorm/src/subscriber"
   }
 }
