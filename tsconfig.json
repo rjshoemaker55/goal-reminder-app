@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "experimentalDecorators": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,8 +12,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+
+    // Typeorm
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "db/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "db_seqeulize/index.js"],
   "exclude": ["node_modules"]
 }
