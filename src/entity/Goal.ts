@@ -1,15 +1,15 @@
-import { Entity, Column } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Goal {
-  @Column()
+  @PrimaryGeneratedColumn()
   id: number
-  @Column()
+  @Column('varchar')
   title: string
-  @Column()
+  @Column('varchar')
   description: string
-  @Column()
+  @Column('varchar')
   completed_date: string
-  @Column()
+  @Column('varchar')
   annotation: string
 }

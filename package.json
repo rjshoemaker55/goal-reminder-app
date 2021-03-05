@@ -8,10 +8,16 @@
       "start": "ts-node src/index.ts"
    },
    "dependencies": {
+      "@babel/core": "^7.13.8",
+      "@babel/plugin-proposal-class-properties": "^7.13.0",
+      "@babel/plugin-proposal-decorators": "^7.13.5",
+      "@babel/preset-react": "^7.12.13",
+      "@babel/preset-typescript": "^7.13.0",
       "@react-firebase/database": "^0.3.11",
       "@types/es6-shim": "^0.31.41",
       "firebase": "^8.2.5",
       "next": "10.0.5",
+      "next-connect": "^0.10.0",
       "pg": "^8.4.0",
       "pg-hstore": "^2.3.3",
       "react": "17.0.1",
@@ -25,7 +31,7 @@
    "devDependencies": {
       "@types/node": "^8.0.29",
       "@types/react": "^17.0.0",
-      "typescript": "3.3.3333",
-      "ts-node": "3.3.0"
+      "ts-node": "3.3.0",
+      "typescript": "3.3.3333"
    }
 }

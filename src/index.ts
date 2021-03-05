@@ -1,21 +1,31 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import 'reflect-metadata'
+import { createConnection } from 'typeorm'
+import { Goal } from './entity/Goal'
 
-createConnection().then(async connection => {
+createConnection()
+  .then(async (connection) => {
+    // let goal = new Goal()
+    // goal.title = 'New Goal'
+    // goal.description = 'New goal description.'
+    // goal.completed_date = '03/04/2021'
+    // goal.annotation = '24 minutes!'
 
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+    let goalRepo = connection.getRepository(Goal)
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
+    // await goalRepo.save(goal)
+    // console.log('New goal added, goal id: ', goal.id)
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+    let goals = await goalRepo.find()
+    console.log('All goals from the db: ', goals)
 
-}).catch(error => console.log(error));
+    let goalOne = await goalRepo.findOne({ id: 1 })
+    console.log('Goal with id of 1: ', goalOne)
+
+    let goalsWithTitle = await goalRepo.find({ title: 'New Goal' })
+    console.log('Goals with "New Goal" title', goalsWithTitle)
+
+    let [allGoals, goalsCount] = await goalRepo.findAndCount()
+    console.log('All goals: ', allGoals)
+    console.log('Goal Count: ', goalsCount)
+  })
+  .catch((error) => console.log(error))

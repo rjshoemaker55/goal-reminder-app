@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from '../firebase'
+import { getConnection } from 'typeorm'
+import { Goal } from '../src/entity/Goal'
+import { create } from 'domain'
 
 const Home = () => {
   const [user, setUser] = useState({ email: '', displayName: '' })
@@ -25,6 +28,11 @@ const Home = () => {
         setUser(snapshot.val())
         setLoggedIn(true)
       })
+
+    getConnection()
+      .getRepository(Goal)
+      .find()
+      .then((data) => console.log(data))
   }, [])
 
   return (

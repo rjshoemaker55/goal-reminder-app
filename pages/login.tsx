@@ -58,6 +58,12 @@ const Login = () => {
   const submitLogin = (e: any) => {
     e.preventDefault()
 
+    const getGoals = async () => {
+      const res = await fetch('/api/goals')
+    }
+
+    getGoals()
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
