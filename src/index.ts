@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
-import { Goal } from './entity/Goal'
+import { Goal } from './entity/Goal.entity'
 
 createConnection()
   .then(async (connection) => {

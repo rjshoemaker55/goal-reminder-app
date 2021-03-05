@@ -1,18 +1,17 @@
 import 'reflect-metadata'
 import { getConnection, createConnection } from 'typeorm'
 import nextConnect from 'next-connect'
-import { Goal } from '../../src/entity/Goal'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { Goal } from '../../src/entity/Goal.entity'
 
-const handler = nextConnect()
+const handler = nextConnect<NextApiRequest, NextApiResponse>()
 
-handler.use(nextConnect())
+createConnection()
+  .then(async (connection) => {
+    let goalRepo = connection.getRepository(Goal)
 
-handler.get((req, res) => {
-  createConnection()
-    .then(async (connection) => {
-      let goalRepo = connection.getRepository(Goal)
-
-      const goals = await goalRepo.find()
+    handler.get(async (req, res) => {
+      let goals = await goalRepo.find()
 
       res.statusCode = 200
       res.json({
@@ -20,7 +19,7 @@ handler.get((req, res) => {
         data: goals
       })
     })
-    .catch((err) => res.json({ status: 400, data: err }))
-})
+  })
+  .catch((err) => console.log(err))
 
 export default handler
