@@ -6,6 +6,7 @@ import { Goal } from '../../database/src/entity/Goal.entity'
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>()
 
+// Creates the connection
 createConnection({
   type: 'postgres',
   host: 'localhost',
